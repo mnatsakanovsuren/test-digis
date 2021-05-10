@@ -1,21 +1,38 @@
-export const SET_DATA = "SET_DATA";
+export const SET_CITY = "SET_CITY";
+export const SET_ERROR = "SET_ERROR";
+export const SET_TEMPS = "SET_TEMPS";
 
 const defaultState = {
-  weather: null,
+  temps: [],
+  city: '',
+  isError: false,
   isFetching: true,
 }
 
 export default function dataReducer(state = defaultState, action) {
   switch (action.type) {
-    case SET_DATA:
+    case SET_TEMPS:
       return {
         ...state,
-        weather: action.payload,
-        isFetching: false
+        temps: [...action.payload],
+        isFetching: false,
+        isError: false,
+      }
+    case SET_CITY:
+      return {
+        ...state,
+        city: action.payload
+      }
+    case SET_ERROR:
+      return {
+        ...state,
+        isError: action.payload,
       }
     default:
       return state;
   }
 }
 
-export const setData = (weather) => ({type: SET_DATA, payload: weather})
+export const setError = (isError) => ({type: SET_ERROR, payload: isError})
+export const setTemps = (temps) => ({type: SET_TEMPS, payload: temps})
+export const setCity = (city) => ({type: SET_CITY, payload: city})
